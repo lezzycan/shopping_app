@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery_app/widgets/app_bar_icons.dart';
+import 'package:grocery_app/widgets/sales_widget.dart';
 
 import '../consts/globals.dart';
 
@@ -66,6 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     suffixIcon: const Icon(IconlyLight.search, color:  Constants.lightIconsColor,)
                   ),
                 ),
+              const  SizedBox(height: 4.0,),
+                const SalesWidget(),
               ],
             ),
           ),
