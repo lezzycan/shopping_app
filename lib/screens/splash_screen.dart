@@ -17,7 +17,7 @@ class SplashScreen extends StatelessWidget {
         children: [
           Expanded(child: Lottie.asset('assets/lotie.json')),
           const SizedBox(
-            height: 15,
+            height: 20,
           ),
           Text(
             'WELCOME TO LEZZYCAN \n GROCERY STORY',

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../consts/globals.dart';
-
 class SalesWidget extends StatelessWidget {
-  const SalesWidget({super.key});
+  const SalesWidget(
+      {super.key, required this.colorGradientA, required this.colorGradientB, });
 
+  final Color colorGradientA;
+  final Color colorGradientB;
+ 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -12,11 +14,12 @@ class SalesWidget extends StatelessWidget {
       height: size.height * 0.2, // use 20% of the screensize
       width: double.infinity,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(25),
         gradient: LinearGradient(
             colors: <Color>[
-              Colors.orange.withOpacity(0.5),
-              Colors.grey.withOpacity(0.5),
+              // Colors.orange,
+              colorGradientA,
+              colorGradientB
             ],
             begin: const FractionalOffset(0.0, 0.0),
             end: const FractionalOffset(1.0, 0.0),
@@ -31,24 +34,29 @@ class SalesWidget extends StatelessWidget {
           Flexible(
             flex: 2,
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(18.0),
               child: Container(
                 height: double.infinity,
                 // margin: const EdgeInsets.only(left:20),
                 // padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Constants.lightOrangeColor,
+                  // color:Colors.blue,
+                  color: Colors.blue.withOpacity(0.5),
+                  // color: Constants.lightOrangeColor.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Column(
-                   // mainAxisAlignment: MainAxisAlignment.center,
-                   // mainAxisSize: MainAxisSize.max,
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    // mainAxisSize: MainAxisSize.max,
                     children: const [
                       Text(
                         'Get the special\n discount',
-                          style: TextStyle(fontWeight: FontWeight.w300)
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w300),
                       ),
                       SizedBox(
                         height: 18,
@@ -59,28 +67,33 @@ class SalesWidget extends StatelessWidget {
                           child: FittedBox(
                             fit: BoxFit.fill,
                             child: Text(
-                              '50 %  \nOFF',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              '30 %\nOFF',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
           ),
-          const SizedBox(
-            width: 15,
-          ),
+          // const SizedBox(
+          //   width: 15,
+          // ),
           const Flexible(
-            flex: 3,
-              child:  Image(
-            image: AssetImage('assets/images/sneakers.jpg'),
-            width: 20,
-            height: 115,
-          ))
+              flex: 3,
+              child: Image(
+                // "https://i.ibb.co/vwB46Yq/shoes.png",
+                image:    AssetImage('assets/images/sneaker.png'),
+                width: double.infinity,
+                fit: BoxFit.contain,
+                // height: 115,
+              ))
         ],
       ),
     );

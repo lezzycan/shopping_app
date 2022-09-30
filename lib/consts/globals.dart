@@ -12,11 +12,11 @@ class Constants {
   // TextStyles
 
   static TextStyle kSplashScreenTextStyle = TextStyle(
-    fontSize: 24,
-    fontWeight: FontWeight.bold,
+    fontSize: 40,
+    fontWeight: FontWeight.w900,
     foreground: Paint()
       ..shader = const LinearGradient(
-              colors: <Color>[lightTextColor, Colors.white, lightOrangeColor])
+              colors: <Color>[lightTextColor, Colors.red, Colors.green])
           .createShader(
         const Rect.fromLTWH(100.0, 50.0, 200.0, 100.0),
       ),
