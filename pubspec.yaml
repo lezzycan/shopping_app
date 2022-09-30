@@ -16,6 +16,7 @@ dependencies:
     sdk: flutter
   flutter_iconly: ^1.0.2
   flutter_svg: ^1.1.5
+  fancy_shimmer_image: ^2.0.2
   lottie: ^1.4.3
 
 dev_dependencies:

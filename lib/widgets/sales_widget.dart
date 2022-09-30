@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
 class SalesWidget extends StatelessWidget {
-  const SalesWidget(
-      {super.key, required this.colorGradientA, required this.colorGradientB, });
+  const SalesWidget({
+    super.key,
+    required this.colorGradientA,
+    required this.colorGradientB, required this.image,
+  });
 
   final Color colorGradientA;
   final Color colorGradientB;
- 
+  final ImageProvider image;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -85,11 +89,11 @@ class SalesWidget extends StatelessWidget {
           // const SizedBox(
           //   width: 15,
           // ),
-          const Flexible(
+         Flexible(
               flex: 3,
               child: Image(
                 // "https://i.ibb.co/vwB46Yq/shoes.png",
-                image:    AssetImage('assets/images/sneaker.png'),
+                image: image,
                 width: double.infinity,
                 fit: BoxFit.contain,
                 // height: 115,
