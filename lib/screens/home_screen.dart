@@ -70,9 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Constants.lightIconsColor,
                       )),
                 ),
-                const SizedBox(
-                  height: 4.0,
-                ),
+                
                 // SizedBox(
                 //   height: size.height * 0.25,
                 //   child: Swiper(
@@ -96,47 +94,72 @@ class _HomeScreenState extends State<HomeScreen> {
                 // const SizedBox(
                 //   height: 10.0,
                 // ),
-                SizedBox(
-                  height: size.height * 0.3,
-                  child: Swiper.children(
-                    //  autoplay:true,
-                    // viewportFraction: 0.8,
-                    //  scale: 0.9,
-                    // layout: SwiperLayout.TINDER,
-                    // itemWidth: 300.0,
-                    // itemHeight: 400,
-                    //autoplayDelay: 2,
-                    // duration: kDefaultAutoplayDelayMs,
-                    pagination: const SwiperPagination(
-                      alignment: Alignment.bottomCenter,
-                      builder: DotSwiperPaginationBuilder(
-                        color: Colors.white,
-                        activeColor: Colors.black,
-                      ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: size.height * 0.25,
+                          child: Swiper.children(
+                            //  autoplay:true,
+                            // viewportFraction: 0.8,
+                            //  scale: 0.9,
+                            // layout: SwiperLayout.TINDER,
+                            // itemWidth: 300.0,
+                            // itemHeight: 400,
+                            //autoplayDelay: 2,
+                            // duration: kDefaultAutoplayDelayMs,
+                            pagination: const SwiperPagination(
+                              alignment: Alignment.bottomCenter,
+                              builder: DotSwiperPaginationBuilder(
+                                color: Colors.white,
+                                activeColor: Colors.black,
+                              ),
+                            ),
+                            control: const SwiperControl(
+                              iconPrevious: Icons.arrow_back_ios,
+                              iconNext: Icons.arrow_forward_ios,
+                            ),
+                            children: sales,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Latest Products',
+                              style: TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.bold),
+                            ),
+                            const Spacer(),
+                            AppBarIcons(icon: IconlyBold.play, funtion: () {})
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          // ignore: prefer_const_constructors
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 0.0,
+                            mainAxisSpacing: 10.0,
+                            childAspectRatio: 0.7,
+                          ),
+                          itemBuilder: ((context, index) {
+                            return const FeedWidget();
+                          }),
+                          itemCount: 4,
+                        ),
+                      ],
                     ),
-                    control: const SwiperControl(
-                      iconPrevious: Icons.arrow_back_ios,
-                      iconNext: Icons.arrow_forward_ios,
-                    ),
-                    children: sales,
                   ),
                 ),
-                const SizedBox(
-                  height: 6,
-                ),
-                Row(
-                  children: [
-                    const Text(
-                      'Latest Products',
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                    const Spacer(),
-                    AppBarIcons(icon: IconlyBold.play, funtion: () {})
-                  ],
-                ),
-                const SizedBox(height: 10.0,),
-                const FeedWidget(),
               ],
             ),
           ),
