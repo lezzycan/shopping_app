@@ -21,4 +21,9 @@ class Constants {
         const Rect.fromLTWH(100.0, 50.0, 200.0, 100.0),
       ),
   );
+  static const kTitleStyle = TextStyle(
+    fontSize:  30,
+    color: Colors.black,
+    fontWeight: FontWeight.w800,
+  );
 }

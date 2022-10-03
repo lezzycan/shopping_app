@@ -3,7 +3,11 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery_app/widgets/app_bar_icons.dart';
+import 'package:grocery_app/screens/category_screen.dart';
+import 'package:grocery_app/widgets/feed_grid.dart';
 import 'package:grocery_app/widgets/feeds_widget.dart';
+import 'package:grocery_app/screens/feedscreen.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../consts/globals.dart';
 import '../consts/sales.dart';
@@ -31,7 +35,15 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           // widget before title
           leading: AppBarIcons(
-            funtion: () {},
+            funtion: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                    //  fullscreenDialog: true,
+                    type: PageTransitionType.fade,
+                    child: const CategoryScreen()),
+              );
+            },
             icon: IconlyBold.category,
           ),
           //widget after title
@@ -70,30 +82,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Constants.lightIconsColor,
                       )),
                 ),
-                
-                // SizedBox(
-                //   height: size.height * 0.25,
-                //   child: Swiper(
-                //     itemCount: 5,
-                //     itemBuilder: ((context, index) {
-                //      return const SalesWidget();
-                //     }),
-                //     pagination: const SwiperPagination(
-                //       alignment: Alignment.bottomCenter,
-                //       builder: DotSwiperPaginationBuilder(
-                //         color: Colors.white,
-                //         activeColor: Colors.black,
-                //       ),
-                //       ),
-                //       control:  const SwiperControl(
-                //         iconPrevious: Icons.arrow_back_ios,
-                //         iconNext: Icons.arrow_forward_ios,
-                //       ),
-                //   ),
-                // ),
-                // const SizedBox(
-                //   height: 10.0,
-                // ),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
@@ -101,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(
                           height: size.height * 0.25,
                           child: Swiper.children(
-                            //  autoplay:true,
+                            autoplay: true,
                             // viewportFraction: 0.8,
                             //  scale: 0.9,
                             // layout: SwiperLayout.TINDER,
@@ -134,7 +122,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontSize: 24, fontWeight: FontWeight.bold),
                             ),
                             const Spacer(),
-                            AppBarIcons(icon: IconlyBold.play, funtion: () {})
+                            AppBarIcons(
+                              icon: IconlyBold.arrowRight2,
+                              funtion: () {
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      //  fullscreenDialog: true,
+                                      type: PageTransitionType.fade,
+                                      child: const FeedScreenState()),
+                                );
+                              },
+                            )
                           ],
                         ),
                         const SizedBox(
@@ -154,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemBuilder: ((context, index) {
                             return const FeedWidget();
                           }),
-                          itemCount: 4,
+                          itemCount: 3,
                         ),
                       ],
                     ),
