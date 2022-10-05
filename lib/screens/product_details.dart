@@ -78,10 +78,10 @@ class ProductDetailsState extends StatelessWidget {
                           )
                           ),
                         autoplay: true,
-                        itemCount: 2,
+                        itemCount: 3,
                         itemBuilder: (context, index) {
                           return FancyShimmerImage(
-                            imageUrl: 'https://i.ibb.co/vwB46Yq/shoes.png',
+                            imageUrl: 'https://placeimg.com/640/480/any',
                             shimmerDuration: Duration(seconds: 2),
                             width: double.infinity,
                             height: size.height * 0.2,

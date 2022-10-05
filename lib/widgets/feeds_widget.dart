@@ -65,7 +65,7 @@ class FeedWidget extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: FancyShimmerImage(
-                imageUrl: 'https://i.ibb.co/vwB46Yq/shoes.png',
+                imageUrl: 'https://placeimg.com/640/480/any',
                 shimmerDuration: Duration(seconds: 2),
                 width: double.infinity,
                 height: size.height * 0.2,

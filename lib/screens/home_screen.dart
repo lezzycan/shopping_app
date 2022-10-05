@@ -11,6 +11,7 @@ import 'package:page_transition/page_transition.dart';
 
 import '../consts/globals.dart';
 import '../consts/sales.dart';
+import 'users_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -47,7 +48,17 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: IconlyBold.category,
           ),
           //widget after title
-          actions: [AppBarIcons(icon: IconlyBold.user3, funtion: () {})],
+          actions: [
+            AppBarIcons(
+                icon: IconlyBold.user3,
+                funtion: () {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          type: PageTransitionType.fade,
+                          child: const UsersWidget()));
+                })
+          ],
         ),
         body: SizedBox(
           height: size.height,
@@ -81,6 +92,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         IconlyLight.search,
                         color: Constants.lightIconsColor,
                       )),
+                ),
+               const SizedBox(
+                  height: 18,
                 ),
                 Expanded(
                   child: SingleChildScrollView(
@@ -146,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            crossAxisSpacing: 0.0,
+                            crossAxisSpacing: 5.0,
                             mainAxisSpacing: 10.0,
                             childAspectRatio: 0.7,
                           ),

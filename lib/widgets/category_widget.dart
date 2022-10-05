@@ -11,27 +11,23 @@ class CategoryWidget extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), color: Colors.blue),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: FancyShimmerImage(
-              imageUrl: 'https://i.ibb.co/vwB46Yq/shoes.png',
-              shimmerDuration: const Duration(seconds: 2),
-              width: size.width * 0.45,
-              height: size.height * 0.45,
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: FancyShimmerImage(
+            imageUrl: 'https://placeimg.com/640/480/any',
+            shimmerDuration: const Duration(seconds: 2),
+            width: size.width * 0.45,
+            height: size.height * 0.45,
 
-              boxFit: BoxFit.fill,
-              errorWidget: // Image(
-                  // image: AssetImage('assets/images/sneaker.png'),
-                  const Icon(
-                IconlyBold.danger,
-                color: Colors.red,
-                size: 28,
-              ),
-              // ),
+           // boxFit: BoxFit.fill,
+            errorWidget: // Image(
+                // image: AssetImage('assets/images/sneaker.png'),
+                const Icon(
+              IconlyBold.danger,
+              color: Colors.red,
+              size: 28,
             ),
+            // ),
           ),
         ),
        const Align(
