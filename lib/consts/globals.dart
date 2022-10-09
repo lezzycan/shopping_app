@@ -26,4 +26,8 @@ class Constants {
     color: Colors.black,
     fontWeight: FontWeight.w800,
   );
+
+  // APIs
+
+static  String allProductsAPI = 'https://api.escuelajs.co/api/v1/products';
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_app/models/products_models.dart';
+import 'package:provider/provider.dart';
 
 import 'feeds_widget.dart';
 
 class FeedGrid extends StatelessWidget {
-  const FeedGrid({super.key});
-
+ const  FeedGrid({super.key, required this.productsList});
+final List<ProductsModel> productsList;
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -18,9 +20,11 @@ class FeedGrid extends StatelessWidget {
         childAspectRatio: 0.7,
       ),
       itemBuilder: ((context, index) {
-        return const FeedWidget();
+        return ChangeNotifierProvider.value(
+          value:productsList[index] ,
+          child: const FeedWidget());
       }),
-      itemCount: 3,
-    );
+      itemCount: 4,
+    ); 
   }
 }

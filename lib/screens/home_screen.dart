@@ -2,10 +2,11 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:grocery_app/models/products_models.dart';
+import 'package:grocery_app/services/api_handler.dart';
 import 'package:grocery_app/widgets/app_bar_icons.dart';
 import 'package:grocery_app/screens/category_screen.dart';
 import 'package:grocery_app/widgets/feed_grid.dart';
-import 'package:grocery_app/widgets/feeds_widget.dart';
 import 'package:grocery_app/screens/feedscreen.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -22,6 +23,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _textController = TextEditingController();
+  // List<ProductsModel>? productsList ;
+  // @override
+  // void didChangeDependencies() {
+  //   productsList;
+  //   // APIHandler.getProducts();
+  //   super.didChangeDependencies();
+  // }
+
+  // Future<void> getAllProducts() async {
+  //   productsList = await APIHandler.getProducts();
+  //   setState({});
+  // }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -93,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Constants.lightIconsColor,
                       )),
                 ),
-               const SizedBox(
+                const SizedBox(
                   height: 18,
                 ),
                 Expanded(
@@ -128,46 +142,56 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(
                           height: 6,
                         ),
-                        Row(
-                          children: [
-                            const Text(
-                              'Latest Products',
-                              style: TextStyle(
-                                  fontSize: 24, fontWeight: FontWeight.bold),
-                            ),
-                            const Spacer(),
-                            AppBarIcons(
-                              icon: IconlyBold.arrowRight2,
-                              funtion: () {
-                                Navigator.push(
-                                  context,
-                                  PageTransition(
-                                      //  fullscreenDialog: true,
-                                      type: PageTransitionType.fade,
-                                      child: const FeedScreenState()),
-                                );
-                              },
-                            )
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              const Text(
+                                'Latest Products',
+                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.bold),
+                              ),
+                              const Spacer(),
+                              AppBarIcons(
+                                icon: IconlyBold.arrowRight2,
+                                funtion: () {
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        //  fullscreenDialog: true,
+                                        type: PageTransitionType.fade,
+                                        child: const FeedScreenState()),
+                                  );
+                                },
+                              )
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 10.0,
                         ),
-                        GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          // ignore: prefer_const_constructors
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 5.0,
-                            mainAxisSpacing: 10.0,
-                            childAspectRatio: 0.7,
-                          ),
-                          itemBuilder: ((context, index) {
-                            return const FeedWidget();
-                          }),
-                          itemCount: 3,
+                        FutureBuilder<List<ProductsModel>>(
+                          future: APIHandler.getProducts(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<ProductsModel>> snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else if (snapshot.hasError) {
+                              return Center(
+                                child:
+                                    Text('An error occured ${snapshot.error}'),
+                              );
+                            } else if (snapshot.hasData) {
+                              return FeedGrid(productsList: snapshot.data!);
+                            } else {
+                              return const Center(
+                                child: Text('No products has been added yet'),
+                              );
+                            }
+                          },
                         ),
                       ],
                     ),
