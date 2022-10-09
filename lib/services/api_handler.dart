@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 // ignore: depend_on_referenced_packages
 import 'package:grocery_app/consts/api.dart';
@@ -11,14 +12,22 @@ import '../models/categories_model.dart';
 
 class APIHandler {
   static Future<List<dynamic>> getData(String target) async {
-    var url = Uri.http(BASE_URL, 'api/v1/$target');
-    var response = await http.get(url);
-    var datas = jsonDecode(response.body);
-    var dataList = [];
-    for (var data in datas) {
-      dataList.add(data);
+    try {
+      var url = Uri.http(BASE_URL, 'api/v1/$target');
+      var response = await http.get(url);
+      var datas = jsonDecode(response.body);
+      if (response.statusCode != 200) {
+        throw datas['message'];
+      }
+      var dataList = [];
+      for (var data in datas) {
+        dataList.add(data);
+      }
+      return dataList;
+    } catch (error) {
+      // log('An error occurred $error');
+      throw '$error';
     }
-    return dataList;
   }
 
   static Future<List<ProductsModel>> getProducts() async {
@@ -39,15 +48,21 @@ class APIHandler {
     //   return CategoriesModel.fromCategoriesJson(categoryList);
     // }
   }
+
   static Future<List<UsersModel>> getUsers() async {
     var listOfUsers = await getData('users');
     return UsersModel.usersFromJson(listOfUsers);
   }
-   static Future<ProductsModel> getProductById(int id) async {
-    var url = Uri.http(BASE_URL, 'api/v1/products/$id');
-    var response = await http.get(url);
-    var data = jsonDecode(response.body);
-   
-    return ProductsModel.fromJson(data);
+
+  static Future<ProductsModel> getProductById(String id) async {
+    try {
+      var url = Uri.http(BASE_URL, 'api/v1/products/$id');
+      var response = await http.get(url);
+      var data = jsonDecode(response.body);
+
+      return ProductsModel.fromJson(data);
+    } catch (error) {
+      throw error.toString();
+    }
   }
 }
