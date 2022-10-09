@@ -1,8 +1,10 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
 
 import '../consts/globals.dart';
+import '../models/users_model.dart';
 
 class CustomContainer extends StatelessWidget {
   const CustomContainer({super.key});
@@ -10,11 +12,12 @@ class CustomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    var userProvider = Provider.of<UsersModel>(context);
     return ListTile(
       isThreeLine: true,
       leading: FancyShimmerImage(
-        imageUrl: 'https://placeimg.com/640/480/any',
-        shimmerDuration: const Duration(seconds: 2),  
+        imageUrl: userProvider.avatar.toString(),
+        shimmerDuration: const Duration(seconds: 2),
         width: size.width * 0.15,
         height: size.width * 0.15,
 
@@ -28,11 +31,12 @@ class CustomContainer extends StatelessWidget {
         ),
         // ),
       ),
-      title: const Text('Jhoon'),
-      subtitle: const Text('Email@gmail.com'),
-      trailing: const Text(
-        'User role',
-        style: TextStyle(color: Constants.lightIconsColor, fontWeight: FontWeight.bold),
+      title:  Text('${userProvider.name}'),
+      subtitle:  Text('${userProvider.email}'),
+      trailing:  Text(
+        userProvider.role.toString(),
+        style: const TextStyle(
+            color: Constants.lightIconsColor, fontWeight: FontWeight.bold),
       ),
     );
   }

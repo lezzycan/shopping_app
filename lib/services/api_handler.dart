@@ -3,6 +3,7 @@ import 'dart:convert';
 // ignore: depend_on_referenced_packages
 import 'package:grocery_app/consts/api.dart';
 import 'package:grocery_app/models/products_models.dart';
+import 'package:grocery_app/models/users_model.dart';
 // ignore: depend_on_referenced_packages
 import "package:http/http.dart" as http;
 
@@ -37,5 +38,16 @@ class APIHandler {
     //   }
     //   return CategoriesModel.fromCategoriesJson(categoryList);
     // }
+  }
+  static Future<List<UsersModel>> getUsers() async {
+    var listOfUsers = await getData('users');
+    return UsersModel.usersFromJson(listOfUsers);
+  }
+   static Future<ProductsModel> getProductById(int id) async {
+    var url = Uri.http(BASE_URL, 'api/v1/products/$id');
+    var response = await http.get(url);
+    var data = jsonDecode(response.body);
+   
+    return ProductsModel.fromJson(data);
   }
 }

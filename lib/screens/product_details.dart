@@ -6,9 +6,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery_app/consts/globals.dart';
+import 'package:grocery_app/services/api_handler.dart';
 
-class ProductDetailsState extends StatelessWidget {
-  const ProductDetailsState({super.key});
+import '../models/products_models.dart';
+
+class ProductDetailsState extends StatefulWidget {
+  const ProductDetailsState({super.key, this.id});
+  final int? id;
+  @override
+  State<ProductDetailsState> createState() => _ProductDetailsStateState();
+}
+
+class _ProductDetailsStateState extends State<ProductDetailsState> {
+  ProductsModel? productsModel;
+  Future<void> getProductInfo() async {
+    productsModel = await APIHandler.getProductById(widget.id!);
+    setState(() {});
+  }
+
+  @override
+  void didChangeDependencies() {
+    getProductInfo();
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +50,8 @@ class ProductDetailsState extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Category',
+                    Text(
+                      productsModel!.category.toString(),
                       style: Constants.kTitleStyle,
                     ),
                     SizedBox(
@@ -40,10 +60,10 @@ class ProductDetailsState extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Flexible(
+                        Flexible(
                           flex: 3,
                           child: Text(
-                            'Lorem Ipsum',
+                            productsModel!.title.toString(),
                             style: Constants.kTitleStyle,
                           ),
                         ),
@@ -54,9 +74,9 @@ class ProductDetailsState extends StatelessWidget {
                                 text: '\$',
                                 style: Constants.kTitleStyle
                                     .copyWith(color: Colors.red),
-                                children: const [
+                                children: [
                                   TextSpan(
-                                      text: '168.00',
+                                      text: productsModel!.price.toString(),
                                       style: Constants.kTitleStyle)
                                 ]),
                           ),
@@ -71,17 +91,14 @@ class ProductDetailsState extends StatelessWidget {
                       child: Swiper(
                         control: SwiperControl(color: Colors.red),
                         pagination: SwiperPagination(
-                          alignment: Alignment.bottomCenter,
-                          builder: DotSwiperPaginationBuilder(
-                            color: Colors.white,
-                            activeColor: Colors.pink
-                          )
-                          ),
+                            alignment: Alignment.bottomCenter,
+                            builder: DotSwiperPaginationBuilder(
+                                color: Colors.white, activeColor: Colors.pink)),
                         autoplay: true,
                         itemCount: 3,
                         itemBuilder: (context, index) {
                           return FancyShimmerImage(
-                            imageUrl: 'https://placeimg.com/640/480/any',
+                            imageUrl: productsModel!.images![index].toString(),
                             shimmerDuration: Duration(seconds: 2),
                             width: double.infinity,
                             height: size.height * 0.2,
@@ -96,16 +113,23 @@ class ProductDetailsState extends StatelessWidget {
                         },
                       ),
                     ),
-                    SizedBox(height: 10.sp,),
-                    Text('Desciption', style: Constants.kTitleStyle,),
-                    SizedBox(height: 10.sp,),
-                    Text(''' The Head Revolt are men’s indoor premium court shoes designed for absolute comfort and confidence while giving your best shot and performing dynamic moves around the court. 
-                       \n The pair has been designed for players who go extra tough on the shoes by ensuring superior stability and durability with smart design. The upper is manufactured from a combination of synthetic leather and mesh panelling – which in conjunction with the Head Cooling System provide substantial breathability improvement and ultimate comfort in stressful situations. Furthermore, there is the Head’s 180° Drift Defense technology which does provide enhanced medial and toe protection, whereas the lateral stability and foot locked properly in place is ensured by the Energy Frame and supreme TPU midfoot shank. Additionally, the shoes offer enhanced abrasion resistance and improved traction with the Hybrasion+ technology incorporated into the Hybrid outsole which performs well on all indoor playable surfaces.
-                     ''', style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.black,
+                    SizedBox(
+                      height: 10.sp,
                     ),
-                    textAlign: TextAlign.start,
+                    Text(
+                      'Description',
+                      style: Constants.kTitleStyle,
+                    ),
+                    SizedBox(
+                      height: 10.sp,
+                    ),
+                    Text(
+                      productsModel!.description.toString(),
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.black,
+                      ),
+                      textAlign: TextAlign.start,
                     )
                   ],
                 ),

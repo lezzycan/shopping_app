@@ -30,7 +30,7 @@ class FeedWidget extends StatelessWidget {
                 PageTransition(
                     //  fullscreenDialog: true,
                     type: PageTransitionType.fade,
-                    child: const ProductDetailsState()));
+                    child: ProductDetailsState(id: productsModelProvider.id,)));
           },
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
