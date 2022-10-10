@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Constants {
   // Colors light theme
@@ -12,7 +13,7 @@ class Constants {
   // TextStyles
 
   static TextStyle kSplashScreenTextStyle = TextStyle(
-    fontSize: 40,
+    fontSize: 30.sp,
     fontWeight: FontWeight.w900,
     foreground: Paint()
       ..shader = const LinearGradient(
@@ -21,8 +22,8 @@ class Constants {
         const Rect.fromLTWH(100.0, 50.0, 200.0, 100.0),
       ),
   );
-  static const kTitleStyle = TextStyle(
-    fontSize:  30,
+  static TextStyle kTitleStyle = TextStyle(
+    fontSize:  30.sp,
     color: Colors.black,
     fontWeight: FontWeight.w800,
   );

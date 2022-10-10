@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SalesWidget extends StatelessWidget {
   const SalesWidget({
@@ -54,32 +55,39 @@ class SalesWidget extends StatelessWidget {
                   child: Column(
                     // mainAxisAlignment: MainAxisAlignment.center,
                     // mainAxisSize: MainAxisSize.max,
-                    children: const [
-                      Text(
-                        'Get the special\n discount',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.w300),
-                      ),
-                      SizedBox(
-                        height: 18,
-                      ),
+                    children:  [
                       Flexible(
                         child: SizedBox(
                           width: double.infinity,
                           child: FittedBox(
-                            fit: BoxFit.fill,
                             child: Text(
-                              '30 %\nOFF',
+                              'Get the special\n discount',
                               style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
+                                  color: Colors.white,
+                                  fontSize: 24.sp,
+                                  fontWeight: FontWeight.w300),
                             ),
                           ),
                         ),
                       ),
+                     const SizedBox(
+                        height: 18,
+                      ),
+                const     Flexible(
+                       child: SizedBox(
+                         width: double.infinity,
+                         child: FittedBox(
+                           fit: BoxFit.fill,
+                           child: Text(
+                             '30 %\nOFF',
+                             style: TextStyle(
+                               color: Colors.white,
+                               fontWeight: FontWeight.bold,
+                             ),
+                           ),
+                         ),
+                       ),
+                     ),
                     ],
                   ),
                 ),

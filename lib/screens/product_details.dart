@@ -20,8 +20,12 @@ class ProductDetailsState extends StatefulWidget {
 class _ProductDetailsStateState extends State<ProductDetailsState> {
   ProductsModel? productsModel;
   Future<void> getProductInfo() async {
-    productsModel = await APIHandler.getProductById(widget.id);
-    setState(() {});
+    try {
+      productsModel = await APIHandler.getProductById(widget.id);
+      setState(() {});
+    } catch (error) {
+      throw error.toString();
+    }
   }
 
   @override

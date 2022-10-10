@@ -14,6 +14,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: Column(
+        mainAxisAlignment:MainAxisAlignment.center,
         children: [
           Expanded(child: Lottie.asset('assets/lotie.json')),
           const SizedBox(
