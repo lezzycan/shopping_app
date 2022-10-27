@@ -1,26 +1,23 @@
 import 'dart:convert';
-import 'dart:math';
-
-// ignore: depend_on_referenced_packages
 import 'package:grocery_app/consts/api.dart';
 import 'package:grocery_app/models/products_models.dart';
 import 'package:grocery_app/models/users_model.dart';
 // ignore: depend_on_referenced_packages
 import "package:http/http.dart" as http;
-
 import '../models/categories_model.dart';
 
 class APIHandler {
-  static Future<List<dynamic>> getData(String target) async {
+  static Future<List<dynamic>> getData({required String source, String? limit}) async {
     try {
-      var url = Uri.http(BASE_URL, 'api/v1/$target');
+      var url = Uri.http(BASE_URL, 'api/v1/$source',
+          source== "products" ? {"offset": 0, "limit": limit} : {});
       var response = await http.get(url);
-      var datas = jsonDecode(response.body);
+      var data = jsonDecode(response.body);
       if (response.statusCode != 200) {
-        throw datas['message'];
+        throw data['message'];
       }
       var dataList = [];
-      for (var data in datas) {
+      for (var data in data) {
         dataList.add(data);
       }
       return dataList;
@@ -30,13 +27,13 @@ class APIHandler {
     }
   }
 
-  static Future<List<ProductsModel>> getProducts() async {
-    var productsList = await getData('products');
+  static Future<List<ProductsModel>> getProducts({required String limit}) async {
+    var productsList = await getData( source:'products', limit: limit);
     return ProductsModel.productsFromJson(productsList);
   }
 
   static Future<List<CategoriesModel>> getCategories() async {
-    var categoriesList = await getData('categories');
+    var categoriesList = await getData(source: 'categories');
     return CategoriesModel.fromCategoriesJson(categoriesList);
     //   var url = Uri.http(CATEGORIES_BASE_URL, 'api/v1/categories');
     //   var response = await http.get(url);
@@ -50,7 +47,7 @@ class APIHandler {
   }
 
   static Future<List<UsersModel>> getUsers() async {
-    var listOfUsers = await getData('users');
+    var listOfUsers = await getData(source :'users');
     return UsersModel.usersFromJson(listOfUsers);
   }
 

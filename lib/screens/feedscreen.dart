@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/products_models.dart';
@@ -14,17 +16,42 @@ class FeedScreenState extends StatefulWidget {
 }
 
 class _FeedScreenStateState extends State<FeedScreenState> {
+  final ScrollController _scrollController = ScrollController();
   List<ProductsModel> productsList = [];
+  int limit = 10;
+  bool isLoading = false;
+  bool isLimit = false;
+  @override
+  void initState() {
+    getAllProducts();
+    super.initState();
+  }
+
   @override
   void didChangeDependencies() {
-    getAllProducts();
-    // APIHandler.getProducts();
+    _scrollController.addListener(
+      () async {
+        if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent) {
+          isLoading = true;
+          limit += 10;
+          log("limit $limit");
+          await getAllProducts();
+          isLoading = false;
+        }
+      },
+    );
     super.didChangeDependencies();
   }
 
-  
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose;
+  }
+
   Future<void> getAllProducts() async {
-    productsList = await APIHandler.getProducts();
+    productsList = await APIHandler.getProducts(limit: limit.toString());
     setState(() {});
   }
 
@@ -38,11 +65,10 @@ class _FeedScreenStateState extends State<FeedScreenState> {
         ),
         body: productsList.isEmpty
             ? const Center(
-                child: CircularProgressIndicator(
-                
-                ),
+                child: CircularProgressIndicator(),
               )
             : GridView.builder(
+                controller: _scrollController,
                 // shrinkWrap: true,
                 // physics: const NeverScrollableScrollPhysics(),
                 // ignore: prefer_const_constructors

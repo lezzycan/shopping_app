@@ -16,7 +16,7 @@ class FeedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    
     
     final ProductsModel productsModelProvider = Provider.of<ProductsModel>(context);
     return Padding(

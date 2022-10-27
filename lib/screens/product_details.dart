@@ -19,13 +19,15 @@ class ProductDetailsState extends StatefulWidget {
 
 class _ProductDetailsStateState extends State<ProductDetailsState> {
   ProductsModel? productsModel;
+  bool isError = false;
   Future<void> getProductInfo() async {
     try {
       productsModel = await APIHandler.getProductById(widget.id);
-      setState(() {});
+      isError = true;
     } catch (error) {
       throw error.toString();
     }
+    setState(() {});
   }
 
   @override
@@ -59,7 +61,7 @@ class _ProductDetailsStateState extends State<ProductDetailsState> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            productsModel!.category.toString(),
+                            productsModel!.category!.name.toString(),
                             style: Constants.kTitleStyle,
                           ),
                           SizedBox(
