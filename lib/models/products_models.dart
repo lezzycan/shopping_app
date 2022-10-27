@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app/models/categories_model.dart';
 
-class ProductsModel with ChangeNotifier{
+
+
+class ProductsModel with ChangeNotifier {
   int? id;
   String? title;
   int? price;
@@ -10,12 +12,12 @@ class ProductsModel with ChangeNotifier{
   List<String>? images;
 
   ProductsModel(
-      {  this.id,
+      {this.id,
       this.title,
       this.price,
       this.description,
       this.category,
-     required this.images});
+       this.images});
 
   ProductsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];

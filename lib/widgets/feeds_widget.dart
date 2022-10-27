@@ -13,12 +13,21 @@ import '../models/products_models.dart';
 
 class FeedWidget extends StatelessWidget {
   const FeedWidget({super.key});
+  // final ProductsModel model;
+  // static Widget create(BuildContext context) {
+  //   final images = context.read<ProductsModel>().images;
+  //   return ChangeNotifierProvider<ProductsModel>(
+  //     create: ((BuildContext context) => ProductsModel(images: images)),
+  //     child: Consumer<ProductsModel>(
+  //         builder: (context, ProductsModel productModel, Widget? child) =>
+  //             FeedWidget()),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
-    
-    
-    final ProductsModel productsModelProvider = Provider.of<ProductsModel>(context);
+    final ProductsModel productsModelProvider =
+        Provider.of<ProductsModel>(context);
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: Material(
@@ -32,7 +41,9 @@ class FeedWidget extends StatelessWidget {
                 PageTransition(
                     //  fullscreenDialog: true,
                     type: PageTransitionType.fade,
-                    child: ProductDetailsState(id: productsModelProvider.id.toString() ,)));
+                    child: ProductDetailsState(
+                      id: productsModelProvider.id.toString(),
+                    )));
           },
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -48,7 +59,7 @@ class FeedWidget extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.red,
                         ),
-                        children:  <TextSpan>[
+                        children: <TextSpan>[
                           TextSpan(
                             text: productsModelProvider.price.toString(),
                             style: TextStyle(
@@ -70,7 +81,8 @@ class FeedWidget extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: FancyShimmerImage(
-                imageUrl: productsModelProvider.images![0],//'https://placeimg.com/640/480/any',
+                imageUrl: productsModelProvider
+                    .images![0], //'https://placeimg.com/640/480/any',
                 shimmerDuration: Duration(seconds: 2),
                 width: double.infinity,
                 height: 150.h,

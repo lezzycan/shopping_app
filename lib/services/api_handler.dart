@@ -7,10 +7,9 @@ import "package:http/http.dart" as http;
 import '../models/categories_model.dart';
 
 class APIHandler {
-  static Future<List<dynamic>> getData({required String source, String? limit}) async {
+  static Future<List<dynamic>> getData({required String source}) async {
     try {
-      var url = Uri.http(BASE_URL, 'api/v1/$source',
-          source== "products" ? {"offset": 0, "limit": limit} : {});
+      var url = Uri.http(BASE_URL, 'api/v1/$source');
       var response = await http.get(url);
       var data = jsonDecode(response.body);
       if (response.statusCode != 200) {
@@ -27,8 +26,8 @@ class APIHandler {
     }
   }
 
-  static Future<List<ProductsModel>> getProducts({required String limit}) async {
-    var productsList = await getData( source:'products', limit: limit);
+  static Future<List<ProductsModel>> getProducts() async {
+    var productsList = await getData( source:'products', );
     return ProductsModel.productsFromJson(productsList);
   }
 

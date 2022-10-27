@@ -171,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 10.0,
                         ),
                         FutureBuilder<List<ProductsModel>>(
-                          future: APIHandler.getProducts(limit: '4'),
+                          future: APIHandler.getProducts(),
                           builder: (BuildContext context,
                               AsyncSnapshot<List<ProductsModel>> snapshot) {
                             if (snapshot.connectionState ==
