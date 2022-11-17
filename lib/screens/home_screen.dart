@@ -44,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
         FocusScope.of(context).unfocus();
       },
       child: RefreshIndicator(
+        backgroundColor: Colors.blue,
         onRefresh: () => APIHandler.getProducts(),
         child: Scaffold(
           appBar: AppBar(
