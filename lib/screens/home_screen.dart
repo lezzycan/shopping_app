@@ -43,161 +43,164 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Home',
+      child: RefreshIndicator(
+        onRefresh: () => APIHandler.getProducts(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              'Home',
+            ),
+            // widget before title
+            leading: AppBarIcons(
+              funtion: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                      //  fullscreenDialog: true,
+                      type: PageTransitionType.fade,
+                      child: const CategoryScreen()),
+                );
+              },
+              icon: IconlyBold.category,
+            ),
+            //widget after title
+            actions: [
+              AppBarIcons(
+                  icon: IconlyBold.user3,
+                  funtion: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.fade,
+                            child: const UsersWidget()));
+                  })
+            ],
           ),
-          // widget before title
-          leading: AppBarIcons(
-            funtion: () {
-              Navigator.push(
-                context,
-                PageTransition(
-                    //  fullscreenDialog: true,
-                    type: PageTransitionType.fade,
-                    child: const CategoryScreen()),
-              );
-            },
-            icon: IconlyBold.category,
-          ),
-          //widget after title
-          actions: [
-            AppBarIcons(
-                icon: IconlyBold.user3,
-                funtion: () {
-                  Navigator.push(
-                      context,
-                      PageTransition(
-                          type: PageTransitionType.fade,
-                          child: const UsersWidget()));
-                })
-          ],
-        ),
-        body: SizedBox(
-          height: size.height,
-          width: size.width,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  controller: _textController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                      hintText: 'Search ',
-                      filled: true,
-                      fillColor: Theme.of(context).cardColor,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            width: 1, color: Theme.of(context).cardColor),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            width: 1,
-                            color: Theme.of(context).colorScheme.secondary),
-                      ),
-                      suffixIcon: const Icon(
-                        IconlyLight.search,
-                        color: Constants.lightIconsColor,
-                      )),
-                ),
-                const SizedBox(
-                  height: 18,
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: size.height * 0.25,
-                          child: Swiper.children(
-                            autoplay: true,
-                            // viewportFraction: 0.8,
-                            //  scale: 0.9,
-                            // layout: SwiperLayout.TINDER,
-                            // itemWidth: 300.0,
-                            // itemHeight: 400,
-                            //autoplayDelay: 2,
-                            // duration: kDefaultAutoplayDelayMs,
-                            pagination: const SwiperPagination(
-                              alignment: Alignment.bottomCenter,
-                              builder: DotSwiperPaginationBuilder(
-                                color: Colors.white,
-                                activeColor: Colors.black,
+          body: SizedBox(
+            height: size.height,
+            width: size.width,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextField(
+                    controller: _textController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        hintText: 'Search ',
+                        filled: true,
+                        fillColor: Theme.of(context).cardColor,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                              width: 1, color: Theme.of(context).cardColor),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                              width: 1,
+                              color: Theme.of(context).colorScheme.secondary),
+                        ),
+                        suffixIcon: const Icon(
+                          IconlyLight.search,
+                          color: Constants.lightIconsColor,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 18,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: size.height * 0.25,
+                            child: Swiper.children(
+                              autoplay: true,
+                              // viewportFraction: 0.8,
+                              //  scale: 0.9,
+                              // layout: SwiperLayout.TINDER,
+                              // itemWidth: 300.0,
+                              // itemHeight: 400,
+                              //autoplayDelay: 2,
+                              // duration: kDefaultAutoplayDelayMs,
+                              pagination: const SwiperPagination(
+                                alignment: Alignment.bottomCenter,
+                                builder: DotSwiperPaginationBuilder(
+                                  color: Colors.white,
+                                  activeColor: Colors.black,
+                                ),
                               ),
-                            ),
-                            control: const SwiperControl(
-                              iconPrevious: Icons.arrow_back_ios,
-                              iconNext: Icons.arrow_forward_ios,
-                            ),
-                            children: sales,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              const Text(
-                                'Latest Products',
-                                style: TextStyle(
-                                    fontSize: 24, fontWeight: FontWeight.bold),
+                              control: const SwiperControl(
+                                iconPrevious: Icons.arrow_back_ios,
+                                iconNext: Icons.arrow_forward_ios,
                               ),
-                              const Spacer(),
-                              AppBarIcons(
-                                icon: IconlyBold.arrowRight2,
-                                funtion: () {
-                                  Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        //  fullscreenDialog: true,
-                                        type: PageTransitionType.fade,
-                                        child: const FeedScreenState()),
-                                  );
-                                },
-                              )
-                            ],
+                              children: sales,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        FutureBuilder<List<ProductsModel>>(
-                          future: APIHandler.getProducts(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<ProductsModel>> snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            } else if (snapshot.hasError) {
-                              return Center(
-                                child:
-                                    Text('An error occured ${snapshot.error}'),
-                              );
-                            } else if (snapshot.hasData) {
-                              return FeedGrid(productsList: snapshot.data!);
-                            } else {
-                              return const Center(
-                                child: Text('No products has been added yet'),
-                              );
-                            }
-                          },
-                        ),
-                      ],
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                const Text(
+                                  'Latest Products',
+                                  style: TextStyle(
+                                      fontSize: 24, fontWeight: FontWeight.bold),
+                                ),
+                                const Spacer(),
+                                AppBarIcons(
+                                  icon: IconlyBold.arrowRight2,
+                                  funtion: () {
+                                    Navigator.push(
+                                      context,
+                                      PageTransition(
+                                          //  fullscreenDialog: true,
+                                          type: PageTransitionType.fade,
+                                          child: const FeedScreenState()),
+                                    );
+                                  },
+                                )
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          FutureBuilder<List<ProductsModel>>(
+                            future: APIHandler.getProducts(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<List<ProductsModel>> snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else if (snapshot.hasError) {
+                                return Center(
+                                  child:
+                                      Text('An error occured ${snapshot.error}'),
+                                );
+                              } else if (snapshot.hasData) {
+                                return FeedGrid(productsList: snapshot.data!);
+                              } else {
+                                return const Center(
+                                  child: Text('No products has been added yet'),
+                                );
+                              }
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
